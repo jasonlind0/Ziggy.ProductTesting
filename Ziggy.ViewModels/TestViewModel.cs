@@ -38,6 +38,7 @@ namespace Ziggy.ViewModels
         public TestViewModel(Type testType, object target)
         {
             this.Target = target;
+            this.TestType = testType;
             this.Config = testType.GetCustomAttribute<TestConfigurationAttribute>(true);
             if (this.Config == null)
                 throw new ArgumentException("testType must have TestConfigurationAttribute");
