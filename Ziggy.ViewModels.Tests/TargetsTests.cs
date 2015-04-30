@@ -60,12 +60,7 @@ namespace Ziggy.ViewModels.Tests
                 sortOrder++;
             }
             Assert.AreEqual(2, vm.Tests.Count);
-            SemaphoreSlim s = new SemaphoreSlim(0);
-            var waitS = s.WaitAsync();
-            vm.PropertyChanged += (sender, e) => { if (e.PropertyName == "IsRunning" && !vm.IsRunning)s.Release(); };
-            Task waitET = vm.ExecuteTests.Execute();
-            await waitET;
-            await waitS;
+            await vm.ExecuteTests.Execute();
             Assert.AreEqual(2, vm.Tests.Select(t => t.Result).Where(r => r != null).Count());
         }
     }
